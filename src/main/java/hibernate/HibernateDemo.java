@@ -23,6 +23,7 @@ public class HibernateDemo {
             try (SessionFactory sessionFactory = metadata.getSessionFactoryBuilder().build();
                  Session session = sessionFactory.openSession()) {
 
+                session.getTransaction().begin();
                 Product laptop = new Product();
                 laptop.setName("ноутбук");
 
@@ -34,8 +35,13 @@ public class HibernateDemo {
 
                 List<Product> savedProducts = session.createNativeQuery("select * from products", Product.class).list();
                 System.out.println(savedProducts);
+                session.getTransaction().commit();
+
+
             }
         }
+
+
 
         // Liquibase, Flyway
     }
